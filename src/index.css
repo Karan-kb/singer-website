@@ -1,0 +1,80 @@
+/* 🌸 RESET + BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  background: #0f0c29; /* dark gradient base */
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* 🌈 ROOT COLORS (Soft feminine + premium vibe) */
+:root {
+  --primary: #ff9a9e;
+  --secondary: #a18cd1;
+  --accent: #fad0c4;
+  --glass: rgba(255, 255, 255, 0.1);
+  --border: rgba(255, 255, 255, 0.2);
+}
+
+/* 🧱 ROOT APP CONTAINER (FULL WIDTH FIX) */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ✨ TYPOGRAPHY */
+h1, h2, h3 {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+p {
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+/* 🔗 LINKS */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 🌟 BUTTON GLOBAL STYLE */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 💎 GLASS EFFECT UTILITY */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+}
+
+/* 🎬 FADE IN ANIMATION */
+.fade-in {
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
