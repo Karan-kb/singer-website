@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import React, { useEffect } from "react";
+
 function Home() {
   return (
     <>
@@ -53,6 +56,10 @@ function Home() {
         </div>
       </section>
 
+<GallerySlider />
+
+
+
   
       <section style={styles.musicSection}>
         <h2 style={styles.sectionTitle}>Featured Music</h2>
@@ -107,6 +114,75 @@ function Home() {
   );
 }
 
+function GallerySlider() {
+  const scrollRef = useRef(null);
+
+  const images = [
+    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+  ];
+
+  const loopImages = [...images, ...images];
+
+  const scroll = (dir) => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const move = 300;
+
+    if (dir === "right") {
+      el.scrollBy({ left: move, behavior: "smooth" });
+
+      setTimeout(() => {
+        if (el.scrollLeft >= el.scrollWidth / 2) {
+          el.style.scrollBehavior = "auto";   // disable animation
+          el.scrollLeft = 0;                  // jump instantly
+          el.style.scrollBehavior = "smooth"; // restore
+        }
+      }, 300);
+    }
+
+    if (dir === "left") {
+      el.scrollBy({ left: -move, behavior: "smooth" });
+
+      setTimeout(() => {
+        if (el.scrollLeft <= 0) {
+          el.style.scrollBehavior = "auto";
+          el.scrollLeft = el.scrollWidth / 2;
+          el.style.scrollBehavior = "smooth";
+        }
+      }, 300);
+    }
+  };
+
+  return (
+    <section style={styles.gallerySection}>
+      <h2 style={styles.sectionTitle}>Gallery</h2>
+
+      <div style={styles.sliderWrapper}>
+        <button onClick={() => scroll("left")} style={styles.arrow}>
+          ◀
+        </button>
+
+        <div ref={scrollRef} style={styles.slider}>
+          {loopImages.map((src, i) => (
+            <img key={i} src={src} style={styles.galleryImage} />
+          ))}
+        </div>
+
+        <button onClick={() => scroll("right")} style={styles.arrow}>
+          ▶
+        </button>
+      </div>
+      <div style={styles.galleryBtnWrap}>
+            <button style={styles.primaryBtn}>  View Galley</button>
+            
+          </div>
+    </section>
+  );
+}
 const styles = {
   
   container: {
@@ -250,6 +326,71 @@ const styles = {
     width: "220px",
     borderRadius: "15px",
   },
+
+  gallerySection: {
+  padding: "80px 10%",
+  background: "#14112e",
+},
+
+galleryGrid: {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+  gap: "20px",
+},
+
+galleryImage: {
+  width: "100%",
+  height: "250px",
+  objectFit: "cover",
+  borderRadius: "15px",
+  cursor: "pointer",
+  transition: "0.3s",
+  transform: "scale(1)",
+},
+
+sliderWrapper: {
+  display: "flex",
+  alignItems: "center",
+  gap: "10px",
+},
+
+galleryBtn: {
+  marginTop: "25px",
+  padding: "14px 35px",
+  borderRadius: "50px",
+  border: "1px solid rgba(255,255,255,0.25)",
+  background: "rgba(255,255,255,0.08)",
+  color: "#fff",
+  cursor: "pointer",
+  fontWeight: "500",
+  letterSpacing: "1px",
+  backdropFilter: "blur(12px)",
+  transition: "0.3s ease",
+  display: "inline-block",
+},
+
+galleryBtnWrap: {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "35px",
+},
+
+slider: {
+  display: "flex",
+  overflowX: "hidden",
+  scrollBehavior: "auto",
+  gap: "20px",
+},
+
+arrow: {
+  background: "rgba(255,255,255,0.1)",
+  border: "none",
+  color: "#fff",
+  fontSize: "20px",
+  padding: "10px",
+  cursor: "pointer",
+  borderRadius: "50%",
+},
 
   contactSection: {
   padding: "80px 10%",
