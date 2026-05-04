@@ -1,11 +1,15 @@
+import { Link, useLocation } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav style={styles.nav}>
-      <a href="#" style={styles.link}>Home</a>
-      <a href="#gallery" style={styles.link}>Gallery</a>
-      <a href="#music" style={styles.link}>Music</a>
-      <a href="#blog" style={styles.link}>Blog</a>
-      <a href="#contact" style={styles.link}>Contact</a>
+      <Link to="/" style={styles.link}>Home</Link>
+      <Link to="/gallery" style={styles.link}>Gallery</Link>
+      {/* <a href="#" style={styles.link}>Home</a> */}
+      <Link to="/music" style={styles.link}>Music</Link>
+      <Link to="/blog" style={styles.link}>Blog</Link>
+      <Link to="/contact" style={styles.link}>Contact</Link>
+      
     </nav>
   );
 }
