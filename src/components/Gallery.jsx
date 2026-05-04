@@ -1,3 +1,4 @@
+import { useState } from "react";
 import photo1 from "../images/dua-lipa-01.jpg";
 import photo2 from "../images/sabrina-carpenter.jpg";
 import photo3 from "../images/sanfran.jpeg";
@@ -9,6 +10,8 @@ const images = [
 ];
 
 function Gallery() {
+  const [selectedImg, setSelectedImg] = useState(null);
+
   return (
     <div style={styles.page} id="gallery">
       
@@ -23,13 +26,17 @@ function Gallery() {
         </div>
       </section>
 
-      {/* GALLERY GRID */}
+      {/* GRID */}
       <section style={styles.section}>
         <h2 style={styles.sectionTitle}>Photo Collection</h2>
 
         <div style={styles.grid}>
           {images.map((item, i) => (
-            <div key={i} style={styles.card}>
+            <div
+              key={i}
+              style={styles.card}
+              onClick={() => setSelectedImg(item)}
+            >
               <img src={item.img} style={styles.image} />
               <div style={styles.cardOverlay}>
                 <h3>{item.title}</h3>
@@ -38,6 +45,21 @@ function Gallery() {
           ))}
         </div>
       </section>
+
+      {/* MODAL */}
+      {selectedImg && (
+        <div style={styles.modal} onClick={() => setSelectedImg(null)}>
+          <span style={styles.close}>×</span>
+
+          <img
+            src={selectedImg.img}
+            style={styles.modalImg}
+            onClick={(e) => e.stopPropagation()} // prevent closing when clicking image
+          />
+
+          <p style={styles.caption}>{selectedImg.title}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -117,6 +139,40 @@ const styles = {
     padding: "15px",
     background: "rgba(0,0,0,0.6)",
     textAlign: "center",
+  },
+
+  /* MODAL */
+  modal: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    background: "rgba(0,0,0,0.9)",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 999,
+  },
+
+  modalImg: {
+    maxWidth: "80%",
+    maxHeight: "70%",
+    borderRadius: "10px",
+  },
+
+  caption: {
+    marginTop: "15px",
+    color: "#ccc",
+  },
+
+  close: {
+    position: "absolute",
+    top: "20px",
+    right: "30px",
+    fontSize: "40px",
+    cursor: "pointer",
   },
 };
 
