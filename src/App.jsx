@@ -27,7 +27,7 @@ function App() {
      
      </>
         } />
-
+        <Route path="/" element={<Home />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/music" element={<Music />} />
         <Route path="/gallery" element={<Gallery />} />
